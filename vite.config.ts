@@ -16,7 +16,7 @@ export default defineConfig({
     //  跨域代理
     proxy: {
       '/api': {
-        target: 'http://localhost:7474',
+        target: 'http://localhost:6363',
         changeOrigin: true
       }
     }
