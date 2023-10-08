@@ -1,7 +1,7 @@
 <template>
   <video-player
     class="video-player vjs-big-play-centered"
-    :src=video_url
+    :src="video_url"
     poster="/images/poster/oceans.png"
     crossorigin="anonymous"
     playsinline
@@ -28,14 +28,14 @@ import { defineComponent, shallowRef } from 'vue'
 import { VideoPlayer } from '@videojs-player/vue'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+import { ref, reactive} from "vue"
 
 type VideoJsPlayer = ReturnType<typeof videojs>
-
+const video_url = ref('resources/Good Vibes Music.mp4')
 export default defineComponent({
   name: 'vue-basic-player-example',
   title: 'Basic player (Vue)',
   url: import.meta.url,
-  video_url = 'resources/Good Vibes Music.mp4',
   components: {
     VideoPlayer
   },

@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-<<<<<<< HEAD
+
 import { ref, reactive} from "vue"
 //  ref & reactive
 const msg = ref("head")
 const title = reactive({title: "video"})
 //  绑定
 const path = ref('/src/assets/logo.svg')
-=======
->>>>>>> 00f196d6cdcae322c28ea93d6cab4cc9ec3444f3
 
 </script>
 
