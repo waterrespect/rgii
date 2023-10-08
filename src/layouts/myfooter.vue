@@ -5,8 +5,12 @@
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 
 <script lang="ts">
+=======
+<script>
+>>>>>>> 00f196d6cdcae322c28ea93d6cab4cc9ec3444f3
 export default {};
 </script>
 <style>

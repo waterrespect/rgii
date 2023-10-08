@@ -12,7 +12,11 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <el-drawer v-model:visible="drawerVisible" append-to-body direction="rtl" size="300px" title="主题配置">
+=======
+    <el-drawer :visible.sync="drawerVisible" append-to-body direction="rtl" size="300px" title="主题配置">
+>>>>>>> 00f196d6cdcae322c28ea93d6cab4cc9ec3444f3
       <el-scrollbar style="height: 80vh; overflow: hidden">
         <div class="el-drawer__body">
           <el-form ref="form" :model="theme" label-position="top">
