@@ -1,23 +1,32 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { ref, reactive} from "vue"
+//  ref & reactive
+const msg = ref("head")
+const title = reactive({title: "video"})
+//  绑定
+const path = ref('/src/assets/logo.svg')
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" :src="path" width="125" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <!-- <h2 class="msg">{{ msg }}</h2> -->
+        <!-- <h2 class="title">{{ title.title }}</h2> -->
       </nav>
     </div>
   </header>
 
   <RouterView />
+  <myfooter />
 </template>
 
 <style scoped>
