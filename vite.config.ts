@@ -9,6 +9,8 @@ export default defineConfig({
     vue(),
   ],
   server: {
+    cors: true,
+    open: true,
     //  端口：
     port: 7473,
     //  IP地址:
@@ -17,7 +19,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:6363',
-        changeOrigin: true
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   },

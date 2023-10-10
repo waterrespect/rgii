@@ -1,41 +1,63 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-
-import { ref, reactive} from "vue"
-//  ref & reactive
-const msg = ref("head")
-const title = reactive({title: "video"})
-//  绑定
-const path = ref('/src/assets/logo.svg')
-
+import headerView from './layouts/header.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" :src="path" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <!-- <h2 class="msg">{{ msg }}</h2> -->
-        <!-- <h2 class="title">{{ title.title }}</h2> -->
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-  <myfooter />
+  <div class="common-layout" id="app">
+    <el-container style="height: 100%">
+      <el-header class="header"><headerView /></el-header>
+      <el-main class="main"> 
+        <div class="wrapper">
+          <HelloWorld msg="You did it!" />
+          <nav>
+            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/about">About</RouterLink>
+            <RouterLink to="/video">video</RouterLink>
+            <!-- <h2 class="msg">{{ msg }}</h2> -->
+            <!-- <h2 class="title">{{ title.title }}</h2> -->
+            <RouterView />
+          </nav>
+        </div>
+      </el-main>
+      <el-footer class="footer">Footer</el-footer>
+      <el-backtop :right="100" :bottom="100" />
+    </el-container>
+  </div>
 </template>
 
 <style scoped>
-header {
+#app{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+html,body,#app,.common-layout,.el-container{
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+el-header {
   line-height: 1.5;
   max-height: 100vh;
 }
 
+.main {
+  /* background-color: rgb(189, 219, 132); */
+  /* main 高度填充flex剩余高 */
+  flex: 1;
+}
+
+.footer {
+  background-color: rgb(189, 219, 132);
+  /* main 高度填充flex剩余高 */
+  flex: 0;
+}
 .logo {
   display: block;
   margin: 0 auto 2rem;
@@ -67,7 +89,7 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
-  header {
+  el-header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
@@ -77,7 +99,7 @@ nav a:first-of-type {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
+  el-header .wrapper {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
