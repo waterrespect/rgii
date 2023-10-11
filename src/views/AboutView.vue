@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import videoVue from '../components/video.vue'
 import {ref} from 'vue'
 import userApi from '@/api/user'
 
@@ -9,7 +8,11 @@ const loginForm = ref({
 })
 
 const login = () => {
-  userApi.login(loginForm)
+  userApi.login(loginForm).then(res => {
+    console.log(res)
+  }).catch(error => {
+    console.log(error)
+  })
 }
 </script>
 
@@ -17,8 +20,8 @@ const login = () => {
   <div>about</div>
   <input v-model="loginForm.user" type="text"/>
   <input v-model="loginForm.pwd" type="text"/>
-
-  <button @click="login"></button>
+  <el-button @click="login" type="primary">Primary</el-button>
+  <!-- <el-button @click="login"></el-button> -->
 </template>
 
 <style lang="scss" scoped>

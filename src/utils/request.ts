@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ElMessageBox, ElMessage } from 'element-plus'
 import cookie from 'js-cookie'
-import showMessage from './status'
 //   vuex
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
