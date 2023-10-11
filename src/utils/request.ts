@@ -1,5 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 import { ElMessageBox, ElMessage } from 'element-plus'
+import cookie from 'js-cookie'
+import showMessage from './status'
 //   vuex
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
@@ -8,30 +10,24 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 const service = axios.create({
   baseURL: import.meta.env.VUE_APP_BASE_API, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 50000, // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
+  (config) => {
     // do something before request is sent
-
-    // 加载动画
-    if (config.loading) {
-      Toast.loading({
-        message: "加载中...",
-        forbidClick: true
-      });
+    // token 先不处理，后续使用时在完善
+    //  判斷cookie是否有token值
+    if(cookie.get('token')) {
+      //  token值放到cookie裏面
+      config.headers['token'] = cookie.get('token')
     }
-    // 在此处添加请求头等，如添加 token
-    // if (store.state.token) {
-    // config.headers['Authorization'] = `Bearer ${store.state.token}`
-    // }
     return config
   },
   (error: any) => {
     console.log(error)
-    Promise.reject(error);
+    return Promise.reject(error);
   }
 )
 
@@ -41,49 +37,20 @@ service.interceptors.response.use(
    * If you want to get http information such as headers or status
    * Please return  response => response
   */
-
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
   response => {
-    const res = response.data
-
-    // if the custom code is not 200, it is judged as an error.
-    if (res.code !== 200) {
-      ElMessage({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        // to re-login
-        ElMessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
-        })
-      }
-      return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      return res
-    }
+        if (response.data.code !== 200) {
+            ElMessage({
+                message: response.data.message,
+                type: 'error',
+                duration: 5 * 1000
+            })
+            return Promise.reject(response.data)
+        } else {
+            return response.data
+        }
   },
   error => {
-    console.log('err' + error) // for debug
-    ElMessage({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+    return Promise.reject(error.response)
   }
 )
 

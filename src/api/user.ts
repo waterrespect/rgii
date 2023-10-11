@@ -1,21 +1,13 @@
 import request from '@/utils/request'
-import { tokenName } from '@/config'
+import { loginForm } from '../api/model/user_class'
 
-export async function login(data) {
+const api_name = `/api/login`
+
+export async function login(data: loginForm) {
   return request({
-    url: '/login',
+    url: `${api_name}/login`,
     method: 'post',
     data,
-  })
-}
-
-export function getUserInfo(accessToken) {
-  return request({
-    url: '/userInfo',
-    method: 'post',
-    data: {
-      [tokenName]: accessToken,
-    },
   })
 }
 
